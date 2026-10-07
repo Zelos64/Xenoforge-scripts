@@ -6,7 +6,7 @@ script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load dependencies folder
 dependenciesFolder = os.path.join(script_dir, "Xenoforge-dependencies")
-if os.path.exists(dependenciesFolder):
+if not os.path.exists(dependenciesFolder):
     print("The folder 'Xenoforge-dependencies' is missing")
     print("Download it from https://github.com/Zelos64/Xenoforge-dependencies")
     print("The folder must be in the same directory as Xenoforge-scripts like this : ")
