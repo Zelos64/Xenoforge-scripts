@@ -24,14 +24,6 @@ if not os.path.exists(ffmpegLocation):
     os.startfile(os.path.join(dependenciesFolder, "README.md"))
     quit()
 
-# Load Opus.dll
-dll_dir = os.path.normpath(dependenciesFolder)
-os.add_dll_directory(dll_dir)
-os.environ['PATH'] = dll_dir + os.pathsep + os.environ['PATH']
-
-import opuslib.api.ctl as ctl
-import opuslib.api.decoder as decoder
-
 # Load nopus.exe
 nopusLocation = os.path.join(dependenciesFolder, "nopus.exe")
 
