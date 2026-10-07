@@ -2,21 +2,30 @@ import os
 import subprocess
 from pathlib import Path
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
+script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Load ffmpeg.exe
-ffmpegLocation = os.path.join(script_dir, "..", "Dependencies", "ffmpeg.exe")
-if os.path.exists(ffmpegLocation):
-    print("")
-else:
-    print("Download ffmpeg from the official website 'https://ffmpeg.org/download.html'")
-    print("And place the executable ffmpeg.exe in this directory : ", os.path.join(script_dir, "..", "Dependencies"))
+# Load dependencies folder
+dependenciesFolder = os.path.join(script_dir, "Xenoforge-dependencies")
+if os.path.exists(dependenciesFolder):
+    print("The folder 'Xenoforge-dependencies' is missing")
+    print("Download it from https://github.com/Zelos64/Xenoforge-dependencies")
+    print("The folder must be in the same directory as Xenoforge-scripts like this : ")
+    print(rf"  - {script_dir}\Xenoforge-scripts")
+    print(rf"  - {script_dir}\Xenoforge-dependencies")
     input("Press enter to exit")
     quit()
 
+# Load ffmpeg.exe
+ffmpegLocation = os.path.join(dependenciesFolder, "ffmpeg.exe")
+if not os.path.exists(ffmpegLocation):
+    print("FFMPEG.exe is missing")
+    print("Please read the README.md file")
+    input("Press enter to open the README and exit this program")
+    os.startfile(os.path.join(dependenciesFolder, "README.md"))
+    quit()
+
 # Load Opus.dll
-dll_dir = os.path.join(script_dir, "..", "Dependencies")
-dll_dir = os.path.normpath(dll_dir)
+dll_dir = os.path.normpath(dependenciesFolder)
 os.add_dll_directory(dll_dir)
 os.environ['PATH'] = dll_dir + os.pathsep + os.environ['PATH']
 
@@ -176,4 +185,4 @@ rewriteFile()
 os.remove(filePathConverted)
 addHeader()
 os.remove(filePathCleaned)
-print("Done ! The result file is '", filePathFinished, "'.")
+print(f"Done ! The result file is '{filePathFinished}'.")

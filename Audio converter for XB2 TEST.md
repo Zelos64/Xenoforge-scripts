@@ -1,3 +1,24 @@
+On va d'abord check si le fichier est un vrai WAV
+Si ce n'est pas le cas, alors on le convertit avec FFMPEG
+
+
+Si c'est déjà un WAV, on peut passer à l'étape suivante directement
+
+On prends le fichier WAV et on le passe dans nopus.exe
+L'exécutable nous donnera un .nop / opus
+nopus make_opus ".../input.wav" ".../output.opus"
+
+Les .nop sont en VBR (Variant Bit Rate), donc les frames ne font pas la même taille
+
+4 octets (big endian) sont utilisés pour indiquer la taille de la frame
+4 octets (little endian) indiquent le checksum de la frame opus
+
+Il faut modifier les quatres octets (de l'offset 0x1C à 0x1F) 38 01 00 00 -> 78 00 00 00, il s'agit du nombre de samples à skip
+
+---------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------
+
 Cet algo servira à calculer la longueur des paquets opus
 
 Le header a une longueur de 96 octets
