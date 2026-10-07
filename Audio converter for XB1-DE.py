@@ -35,13 +35,11 @@ import opuslib.api.decoder as decoder
 def convertFileToOpus():
     global filePathOriginal
     global filePathConverted
-    inputFile = filePathOriginal
-    outputFile = filePathOriginal.with_name(filePathOriginal.stem + " (ffmpeg).opus")
-    filePathConverted = outputFile
+    filePathConverted = filePathOriginal.with_name(filePathOriginal.stem + " (ffmpeg).opus")
 
     command = [
     ffmpegLocation,
-    "-i", inputFile,
+    "-i", filePathOriginal,
     "-map", "0:a",
     "-map", "-0:v",
     "-map_metadata", "-1",
@@ -56,7 +54,7 @@ def convertFileToOpus():
     "-fflags", "+bitexact",
     "-write_xing", "0",
     "-f", "ogg",
-    outputFile,
+    filePathConverted,
     ]
 
     subprocess.run(command, check=True)
