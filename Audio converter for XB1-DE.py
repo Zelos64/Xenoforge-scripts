@@ -2,16 +2,23 @@ import os
 import subprocess
 from pathlib import Path
 
-script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+parentFolder = os.path.basename(os.path.dirname(__file__))
+if parentFolder != "Xenoforge-scripts":
+    print("Warning")
+    print(f"The current scripts is in a folder named '{parentFolder}' and not in 'Xenoforge-scripts'")
+    print("Rename the parent folder or move the script to a folder named 'Xenoforge-scripts'")
+    input("Press enter to exit")
+    quit()
 
+script_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Load dependencies folder
 dependenciesFolder = os.path.join(script_dir, "Xenoforge-dependencies")
 if not os.path.exists(dependenciesFolder):
     print("The folder 'Xenoforge-dependencies' is missing")
     print("Download it from https://github.com/Zelos64/Xenoforge-dependencies")
-    print("The folder must be in the same directory as Xenoforge-scripts like this : ")
-    print(rf"  - {script_dir}\Xenoforge-scripts")
-    print(rf"  - {script_dir}\Xenoforge-dependencies")
+    print("The folder must be in the same directory as 'Xenoforge-scripts' like this : ")
+    print(rf"  - {os.path.dirname(__file__)}")
+    print(rf"  - {dependenciesFolder}")
     input("Press enter to exit")
     quit()
 
